@@ -10,12 +10,6 @@ namespace Courses.Controllers
     [Route("api/[controller]")]
     public class CoursesController : Controller     
     {
-        //private readonly IRepository _repository;
-
-        //public CoursesController(IRepository repository)
-        //{
-        //    _repository = repository;
-        //}
 
         private readonly MyDbContext _db;
         public CoursesController(MyDbContext mydbcontext)
@@ -25,7 +19,7 @@ namespace Courses.Controllers
 
         //Read
         [HttpGet]
-        public async Task<IActionResult> GetAllModules()
+        public async Task<IActionResult> GetAllCourses()
         {
             var employees = await _db.Modules.ToListAsync();
             return Ok(employees);
@@ -34,7 +28,7 @@ namespace Courses.Controllers
         //Create a new module
         [HttpPost]
         [Route("Create")]
-        public async Task<IActionResult> CreateModule([FromBody] Module module)
+        public async Task<IActionResult> CreateCourse([FromBody] Module module)
         {
             if (!ModelState.IsValid)
             {
@@ -48,7 +42,7 @@ namespace Courses.Controllers
         //Populate selected Update row 
         [HttpGet]
         [Route("{id:int}")]
-        public async Task<IActionResult> employeeDetails([FromRoute] int id)
+        public async Task<IActionResult> courseDetails([FromRoute] int id)
         {
             var modules = await _db.Modules.SingleOrDefaultAsync(x => x.ModuleId == id);
 
@@ -62,7 +56,7 @@ namespace Courses.Controllers
         //officually update in database
         [HttpPut]
         [Route("update{id:int}")]
-        public async Task<IActionResult> updateModule([FromRoute] int id, Module officialUpdate)
+        public async Task<IActionResult> updateCourse([FromRoute] int id, Module officialUpdate)
         {
             var modules = await _db.Modules.FindAsync(id);
 
@@ -81,7 +75,7 @@ namespace Courses.Controllers
 
         [HttpDelete]
         [Route("delete/{id:int}")]
-        public async Task<IActionResult> deleteModule([FromRoute] int id)
+        public async Task<IActionResult> deleteCourse([FromRoute] int id)
         {
             var employee = await _db.Modules.FindAsync(id);
 
@@ -93,20 +87,6 @@ namespace Courses.Controllers
             await _db.SaveChangesAsync();
             return Ok(employee);
         }
-        //[HttpGet]
-        //[HttpGet("GetAllModules")]
-        //public async Task<IActionResult> GetAllModules()
-        //{
-        //    try
-        //    {
-        //        var result = await _repository.GetAllModulesAsync();
-        //        return Ok(result);
-        //    }
-        //    catch (Exception)
-        //    {
 
-        //        return StatusCode(500, "THIS IS WHERE THE ERROR IS");
-        //    }
-        //}
     }
 }
