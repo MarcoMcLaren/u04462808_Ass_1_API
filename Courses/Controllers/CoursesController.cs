@@ -36,8 +36,8 @@ namespace Courses.Controllers
             }
             _db.Modules.Add(module);
             await _db.SaveChangesAsync();
-            return CreatedAtAction("GetModuleById", new { id = module.ModuleId }, module);
-        }   
+            return CreatedAtAction(nameof(courseDetails), new { id = module.ModuleId }, module);
+        }
 
         //Populate selected Update row 
         [HttpGet]
@@ -55,7 +55,7 @@ namespace Courses.Controllers
 
         //officually update in database
         [HttpPut]
-        [Route("update{id:int}")]
+        [Route("update/{id:int}")]
         public async Task<IActionResult> updateCourse([FromRoute] int id, Module officialUpdate)
         {
             var modules = await _db.Modules.FindAsync(id);
